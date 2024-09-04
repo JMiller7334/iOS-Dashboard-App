@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Output: View {
+struct OutputView: View {
     private var fillerText = "Results will display here."
     var outputText: String?
     

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TablePicker: View {
+struct TablePickerView: View {
     
     @StateObject var viewModel: AppViewModel
     

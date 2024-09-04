@@ -16,10 +16,11 @@
 		9BB33B332C87D8AD005B814E /* Dashboard_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B322C87D8AD005B814E /* Dashboard_AppUITestsLaunchTests.swift */; };
 		9BB33B402C881E0C005B814E /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B3F2C881E0C005B814E /* AppViewModel.swift */; };
 		9BB33B442C881FAE005B814E /* DatabaseTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B432C881FAE005B814E /* DatabaseTables.swift */; };
-		9BB33B472C8822E1005B814E /* TablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B462C8822E1005B814E /* TablePicker.swift */; };
+		9BB33B472C8822E1005B814E /* TablePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B462C8822E1005B814E /* TablePickerView.swift */; };
 		9BB33B492C882541005B814E /* CustomerMetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B482C882541005B814E /* CustomerMetricView.swift */; };
-		9BB33B4B2C882A35005B814E /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B4A2C882A35005B814E /* Output.swift */; };
+		9BB33B4B2C882A35005B814E /* OutputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B4A2C882A35005B814E /* OutputView.swift */; };
 		9BB33B4D2C8833B8005B814E /* UsageMetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B4C2C8833B8005B814E /* UsageMetricView.swift */; };
+		9BB33B502C885B54005B814E /* ReadTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B4F2C885B54005B814E /* ReadTab.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,10 +53,11 @@
 		9BB33B322C87D8AD005B814E /* Dashboard_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9BB33B3F2C881E0C005B814E /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		9BB33B432C881FAE005B814E /* DatabaseTables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseTables.swift; sourceTree = "<group>"; };
-		9BB33B462C8822E1005B814E /* TablePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablePicker.swift; sourceTree = "<group>"; };
+		9BB33B462C8822E1005B814E /* TablePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablePickerView.swift; sourceTree = "<group>"; };
 		9BB33B482C882541005B814E /* CustomerMetricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerMetricView.swift; sourceTree = "<group>"; };
-		9BB33B4A2C882A35005B814E /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
+		9BB33B4A2C882A35005B814E /* OutputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputView.swift; sourceTree = "<group>"; };
 		9BB33B4C2C8833B8005B814E /* UsageMetricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageMetricView.swift; sourceTree = "<group>"; };
+		9BB33B4F2C885B54005B814E /* ReadTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadTab.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 		9BB33B142C87D8AC005B814E /* Dashboard-App */ = {
 			isa = PBXGroup;
 			children = (
+				9BB33B4E2C885B3E005B814E /* Tabs */,
 				9BB33B452C882299005B814E /* Components */,
 				9BB33B422C881F6B005B814E /* Enums */,
 				9BB33B412C881F59005B814E /* Models */,
@@ -161,12 +164,20 @@
 		9BB33B452C882299005B814E /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				9BB33B462C8822E1005B814E /* TablePicker.swift */,
+				9BB33B462C8822E1005B814E /* TablePickerView.swift */,
 				9BB33B482C882541005B814E /* CustomerMetricView.swift */,
-				9BB33B4A2C882A35005B814E /* Output.swift */,
+				9BB33B4A2C882A35005B814E /* OutputView.swift */,
 				9BB33B4C2C8833B8005B814E /* UsageMetricView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		9BB33B4E2C885B3E005B814E /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				9BB33B4F2C885B54005B814E /* ReadTab.swift */,
+			);
+			path = Tabs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,9 +313,10 @@
 				9BB33B492C882541005B814E /* CustomerMetricView.swift in Sources */,
 				9BB33B182C87D8AC005B814E /* ContentView.swift in Sources */,
 				9BB33B162C87D8AC005B814E /* Dashboard_AppApp.swift in Sources */,
-				9BB33B4B2C882A35005B814E /* Output.swift in Sources */,
+				9BB33B4B2C882A35005B814E /* OutputView.swift in Sources */,
+				9BB33B502C885B54005B814E /* ReadTab.swift in Sources */,
 				9BB33B4D2C8833B8005B814E /* UsageMetricView.swift in Sources */,
-				9BB33B472C8822E1005B814E /* TablePicker.swift in Sources */,
+				9BB33B472C8822E1005B814E /* TablePickerView.swift in Sources */,
 				9BB33B402C881E0C005B814E /* AppViewModel.swift in Sources */,
 				9BB33B442C881FAE005B814E /* DatabaseTables.swift in Sources */,
 			);
