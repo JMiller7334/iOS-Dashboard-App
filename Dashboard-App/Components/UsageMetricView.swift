@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct UsageMetricView: View {
-    var count: Int // The usage metric value to display
+    @Binding var count: Int // The usage metric value to display
     
     var body: some View {
         HStack(spacing: 10) {
@@ -27,7 +27,17 @@ struct UsageMetricView: View {
 
 struct UsageMetricView_Previews: PreviewProvider {
     static var previews: some View {
-        UsageMetricView(count: 1234) // Example usage metric
+        PreviewWrapper()
+    }
+
+    struct PreviewWrapper: View {
+        @State private var sampleCount = 1234
+
+        var body: some View {
+            UsageMetricView(count: $sampleCount)
+                .padding()
+                .previewLayout(.sizeThatFits)
+        }
     }
 }
 

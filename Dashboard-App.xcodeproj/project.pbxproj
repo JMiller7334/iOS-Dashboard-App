@@ -25,6 +25,13 @@
 		9BB33B542C88F72B005B814E /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B532C88F72B005B814E /* InputView.swift */; };
 		9BB33B562C88F9CA005B814E /* ActionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B552C88F9CA005B814E /* ActionPickerView.swift */; };
 		9BB33B582C88FADB005B814E /* DatabaseActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B572C88FADB005B814E /* DatabaseActions.swift */; };
+		9BB33B692C895A9E005B814E /* MonthlyUsageChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B682C895A9E005B814E /* MonthlyUsageChart.swift */; };
+		9BB33B6B2C895B3A005B814E /* UsageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B6A2C895B3A005B814E /* UsageData.swift */; };
+		9BB33B6D2C895B7B005B814E /* TotalUsageProfitChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B6C2C895B7B005B814E /* TotalUsageProfitChart.swift */; };
+		9BB33B6F2C895D3C005B814E /* StatsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B6E2C895D3C005B814E /* StatsTab.swift */; };
+		9BB33B712C895DDD005B814E /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B702C895DDD005B814E /* Customer.swift */; };
+		9BB33B732C895F57005B814E /* AppTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B722C895F57005B814E /* AppTabs.swift */; };
+		9BB33B752C89804E005B814E /* AvgProfitMetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B742C89804E005B814E /* AvgProfitMetricView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +73,13 @@
 		9BB33B532C88F72B005B814E /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		9BB33B552C88F9CA005B814E /* ActionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionPickerView.swift; sourceTree = "<group>"; };
 		9BB33B572C88FADB005B814E /* DatabaseActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseActions.swift; sourceTree = "<group>"; };
+		9BB33B682C895A9E005B814E /* MonthlyUsageChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyUsageChart.swift; sourceTree = "<group>"; };
+		9BB33B6A2C895B3A005B814E /* UsageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageData.swift; sourceTree = "<group>"; };
+		9BB33B6C2C895B7B005B814E /* TotalUsageProfitChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalUsageProfitChart.swift; sourceTree = "<group>"; };
+		9BB33B6E2C895D3C005B814E /* StatsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTab.swift; sourceTree = "<group>"; };
+		9BB33B702C895DDD005B814E /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		9BB33B722C895F57005B814E /* AppTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabs.swift; sourceTree = "<group>"; };
+		9BB33B742C89804E005B814E /* AvgProfitMetricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvgProfitMetricView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +130,7 @@
 		9BB33B142C87D8AC005B814E /* Dashboard-App */ = {
 			isa = PBXGroup;
 			children = (
+				9BB33B672C895A83005B814E /* Charts */,
 				9BB33B4E2C885B3E005B814E /* Tabs */,
 				9BB33B452C882299005B814E /* Components */,
 				9BB33B422C881F6B005B814E /* Enums */,
@@ -148,8 +163,8 @@
 		9BB33B2F2C87D8AD005B814E /* Dashboard-AppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				9BB33B302C87D8AD005B814E /* Dashboard_AppUITests.swift */,
 				9BB33B322C87D8AD005B814E /* Dashboard_AppUITestsLaunchTests.swift */,
+				9BB33B302C87D8AD005B814E /* Dashboard_AppUITests.swift */,
 			);
 			path = "Dashboard-AppUITests";
 			sourceTree = "<group>";
@@ -157,6 +172,8 @@
 		9BB33B412C881F59005B814E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9BB33B6A2C895B3A005B814E /* UsageData.swift */,
+				9BB33B702C895DDD005B814E /* Customer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -166,6 +183,7 @@
 			children = (
 				9BB33B432C881FAE005B814E /* DatabaseTables.swift */,
 				9BB33B572C88FADB005B814E /* DatabaseActions.swift */,
+				9BB33B722C895F57005B814E /* AppTabs.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -179,6 +197,7 @@
 				9BB33B4C2C8833B8005B814E /* UsageMetricView.swift */,
 				9BB33B532C88F72B005B814E /* InputView.swift */,
 				9BB33B552C88F9CA005B814E /* ActionPickerView.swift */,
+				9BB33B742C89804E005B814E /* AvgProfitMetricView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -188,8 +207,18 @@
 			children = (
 				9BB33B4F2C885B54005B814E /* ReadTab.swift */,
 				9BB33B512C88F548005B814E /* WriteTab.swift */,
+				9BB33B6E2C895D3C005B814E /* StatsTab.swift */,
 			);
 			path = Tabs;
+			sourceTree = "<group>";
+		};
+		9BB33B672C895A83005B814E /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				9BB33B682C895A9E005B814E /* MonthlyUsageChart.swift */,
+				9BB33B6C2C895B7B005B814E /* TotalUsageProfitChart.swift */,
+			);
+			path = Charts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,18 +351,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BB33B6B2C895B3A005B814E /* UsageData.swift in Sources */,
 				9BB33B562C88F9CA005B814E /* ActionPickerView.swift in Sources */,
 				9BB33B492C882541005B814E /* CustomerMetricView.swift in Sources */,
 				9BB33B522C88F548005B814E /* WriteTab.swift in Sources */,
+				9BB33B732C895F57005B814E /* AppTabs.swift in Sources */,
+				9BB33B752C89804E005B814E /* AvgProfitMetricView.swift in Sources */,
 				9BB33B182C87D8AC005B814E /* ContentView.swift in Sources */,
 				9BB33B162C87D8AC005B814E /* Dashboard_AppApp.swift in Sources */,
 				9BB33B4B2C882A35005B814E /* OutputView.swift in Sources */,
+				9BB33B692C895A9E005B814E /* MonthlyUsageChart.swift in Sources */,
 				9BB33B582C88FADB005B814E /* DatabaseActions.swift in Sources */,
 				9BB33B502C885B54005B814E /* ReadTab.swift in Sources */,
 				9BB33B4D2C8833B8005B814E /* UsageMetricView.swift in Sources */,
+				9BB33B6F2C895D3C005B814E /* StatsTab.swift in Sources */,
 				9BB33B472C8822E1005B814E /* TablePickerView.swift in Sources */,
 				9BB33B542C88F72B005B814E /* InputView.swift in Sources */,
 				9BB33B402C881E0C005B814E /* AppViewModel.swift in Sources */,
+				9BB33B712C895DDD005B814E /* Customer.swift in Sources */,
+				9BB33B6D2C895B7B005B814E /* TotalUsageProfitChart.swift in Sources */,
 				9BB33B442C881FAE005B814E /* DatabaseTables.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

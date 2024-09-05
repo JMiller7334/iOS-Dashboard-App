@@ -14,19 +14,14 @@ struct WriteTab: View {
     var body: some View {
         
         VStack {
-            Text("Writing \(viewModel.getCurrentTableName())")
-                .padding(.bottom)
-                .font(.system(size: 20))
-                .fontWeight(.bold)
-            
             TablePickerView(bindingValue: $viewModel.selectedTable)
                 .padding(.bottom, 5)
             
             ActionPickerView(selectedAction: $viewModel.databaseAction)
             
-            CustomerMetricView(count: viewModel.customerCount)
+            CustomerMetricView(count: $viewModel.customerCount)
                 .padding(.vertical)
-            UsageMetricView(count: viewModel.customerCount)
+            UsageMetricView(count: $viewModel.customerCount)
                 .padding(.bottom, 30)
             
             

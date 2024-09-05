@@ -2,27 +2,27 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel = AppViewModel()
-    @State private var selectedView: String = "Read"
     
     private let buttonHeight: CGFloat = 50  // Estimated height for buttons
 
     var body: some View {
         NavigationView {
             VStack {
-                // Views for different tabs
-                if selectedView == "Read" {
-                    ReadTab(viewModel: viewModel)
-                } else if selectedView == "Stats" {
-                    Text("Stats View") // Replace with your Stats view
-                } else if selectedView == "Write" {
-                    WriteTab(viewModel: viewModel)
+                
+                switch viewModel.currentTab {
+                case .Read:
+                    ReadTab(viewModel: self.viewModel)
+                case .Write:
+                    WriteTab(viewModel: self.viewModel)
+                case .Stats:
+                    StatsTab(viewModel: self.viewModel)
                 }
-
+                
                 // Bottom buttons
                 HStack {
                     Spacer()
                     Button(action: {
-                        selectedView = "Read"
+                        viewModel.currentTab = .Read
                     }) {
                         VStack {
                             Image(systemName: "tray.full")
@@ -31,7 +31,7 @@ struct ContentView: View {
                     }
                     Spacer()
                     Button(action: {
-                        selectedView = "Stats"
+                        viewModel.currentTab = .Stats
                     }) {
                         VStack {
                             Image(systemName: "chart.bar")
@@ -40,7 +40,7 @@ struct ContentView: View {
                     }
                     Spacer()
                     Button(action: {
-                        selectedView = "Write"
+                        viewModel.currentTab = .Write
                     }) {
                         VStack {
                             Image(systemName: "pencil.and.outline")
@@ -54,7 +54,24 @@ struct ContentView: View {
                 .background(Color(UIColor.systemBackground))
                 .shadow(radius: 4)
             }
-            .navigationBarTitle(Text(selectedView), displayMode: .inline)
+            
+            .navigationBarTitle(Text(viewModel.currentTab.rawValue), displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    refreshButton
+                }
+            }
+
+        }
+    }
+    
+    // Define the refresh button
+    private var refreshButton: some View {
+        Button(action: {
+            viewModel.refresh()
+        }) {
+            Image(systemName: "arrow.clockwise")
+            .font(.system(size: 15))
         }
     }
 }

@@ -13,19 +13,13 @@ struct ReadTab: View {
     @ObservedObject var viewModel: AppViewModel
     
     var body: some View {
-        
-        VStack {
-            Text("Reading \(viewModel.getCurrentTableName())")
-                .padding(.bottom)
-                .font(.system(size: 20))
-                .fontWeight(.bold)
-            
+        VStack {            
             TablePickerView(bindingValue: $viewModel.selectedTable)
                 .padding(.bottom, 5)
             
-            CustomerMetricView(count: viewModel.customerCount)
+            CustomerMetricView(count: $viewModel.customerCount)
                 .padding(.vertical)
-            UsageMetricView(count: viewModel.customerCount)
+            UsageMetricView(count: $viewModel.customerCount)
                 .padding(.bottom, 30)
             
             OutputView(outputText: viewModel.outputText)

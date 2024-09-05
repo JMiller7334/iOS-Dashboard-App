@@ -9,12 +9,16 @@ import Foundation
 import SwiftUI
 
 class AppViewModel: ObservableObject {
-
     
     //MARK: - SHARED
     @Published var selectedTable: DatabaseTables = .tableCustomers
     @Published var customerCount: Int = 0
     @Published var usageCount: Int = 0
+    
+    @Published var customerList: [Customer] = []
+    @Published var usageList: [UsageData] = PreviewData().sampleData
+    
+    @Published var currentTab: AppTabs = .Read
     
     public func getCurrentTableName() -> String {
         switch selectedTable {
@@ -27,6 +31,14 @@ class AppViewModel: ObservableObject {
         }
     }
     
+    public func refresh() {
+        
+    }
+    
+    
+    //MARK: - STATS
+    @Published var avgMonthlyProfit: Double = 0.0
+    
     
     //MARK: - READ
     @Published var outputText: String? = nil
@@ -38,7 +50,7 @@ class AppViewModel: ObservableObject {
     }
     
     
-    //MARK: - WRITE VARIABLES:
+    //MARK: - WRITE
     @Published var databaseAction: DatabaseActions = .write
     
     //customer records inputs
