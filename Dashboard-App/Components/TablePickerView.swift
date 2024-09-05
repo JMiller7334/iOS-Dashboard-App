@@ -9,10 +9,10 @@ import SwiftUI
 
 struct TablePickerView: View {
     
-    @StateObject var viewModel: AppViewModel
+    @Binding var bindingValue: DatabaseTables
     
     var body: some View {
-        Picker("Select Table", selection: $viewModel.selectedTable) {
+        Picker("Select Table", selection: $bindingValue) {
             ForEach(DatabaseTables.allCases, id: \.self) { table in
                 Text(table.rawValue).tag(table)
             }

@@ -21,6 +21,10 @@
 		9BB33B4B2C882A35005B814E /* OutputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B4A2C882A35005B814E /* OutputView.swift */; };
 		9BB33B4D2C8833B8005B814E /* UsageMetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B4C2C8833B8005B814E /* UsageMetricView.swift */; };
 		9BB33B502C885B54005B814E /* ReadTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B4F2C885B54005B814E /* ReadTab.swift */; };
+		9BB33B522C88F548005B814E /* WriteTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B512C88F548005B814E /* WriteTab.swift */; };
+		9BB33B542C88F72B005B814E /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B532C88F72B005B814E /* InputView.swift */; };
+		9BB33B562C88F9CA005B814E /* ActionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B552C88F9CA005B814E /* ActionPickerView.swift */; };
+		9BB33B582C88FADB005B814E /* DatabaseActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B572C88FADB005B814E /* DatabaseActions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +62,10 @@
 		9BB33B4A2C882A35005B814E /* OutputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputView.swift; sourceTree = "<group>"; };
 		9BB33B4C2C8833B8005B814E /* UsageMetricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageMetricView.swift; sourceTree = "<group>"; };
 		9BB33B4F2C885B54005B814E /* ReadTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadTab.swift; sourceTree = "<group>"; };
+		9BB33B512C88F548005B814E /* WriteTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTab.swift; sourceTree = "<group>"; };
+		9BB33B532C88F72B005B814E /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		9BB33B552C88F9CA005B814E /* ActionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionPickerView.swift; sourceTree = "<group>"; };
+		9BB33B572C88FADB005B814E /* DatabaseActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseActions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				9BB33B432C881FAE005B814E /* DatabaseTables.swift */,
+				9BB33B572C88FADB005B814E /* DatabaseActions.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -168,6 +177,8 @@
 				9BB33B482C882541005B814E /* CustomerMetricView.swift */,
 				9BB33B4A2C882A35005B814E /* OutputView.swift */,
 				9BB33B4C2C8833B8005B814E /* UsageMetricView.swift */,
+				9BB33B532C88F72B005B814E /* InputView.swift */,
+				9BB33B552C88F9CA005B814E /* ActionPickerView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -176,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				9BB33B4F2C885B54005B814E /* ReadTab.swift */,
+				9BB33B512C88F548005B814E /* WriteTab.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -310,13 +322,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BB33B562C88F9CA005B814E /* ActionPickerView.swift in Sources */,
 				9BB33B492C882541005B814E /* CustomerMetricView.swift in Sources */,
+				9BB33B522C88F548005B814E /* WriteTab.swift in Sources */,
 				9BB33B182C87D8AC005B814E /* ContentView.swift in Sources */,
 				9BB33B162C87D8AC005B814E /* Dashboard_AppApp.swift in Sources */,
 				9BB33B4B2C882A35005B814E /* OutputView.swift in Sources */,
+				9BB33B582C88FADB005B814E /* DatabaseActions.swift in Sources */,
 				9BB33B502C885B54005B814E /* ReadTab.swift in Sources */,
 				9BB33B4D2C8833B8005B814E /* UsageMetricView.swift in Sources */,
 				9BB33B472C8822E1005B814E /* TablePickerView.swift in Sources */,
+				9BB33B542C88F72B005B814E /* InputView.swift in Sources */,
 				9BB33B402C881E0C005B814E /* AppViewModel.swift in Sources */,
 				9BB33B442C881FAE005B814E /* DatabaseTables.swift in Sources */,
 			);

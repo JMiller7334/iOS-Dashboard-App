@@ -15,12 +15,12 @@ struct ReadTab: View {
     var body: some View {
         
         VStack {
-            Text(viewModel.getCurrentTableName())
+            Text("Reading \(viewModel.getCurrentTableName())")
                 .padding(.bottom)
                 .font(.system(size: 20))
                 .fontWeight(.bold)
             
-            TablePickerView(viewModel: viewModel)
+            TablePickerView(bindingValue: $viewModel.selectedTable)
                 .padding(.bottom, 5)
             
             CustomerMetricView(count: viewModel.customerCount)
@@ -30,15 +30,7 @@ struct ReadTab: View {
             
             OutputView(outputText: viewModel.outputText)
             
-            
-            TextField("Enter Customer ID (ie: 1)", text: $viewModel.searchText)
-                .keyboardType(.numberPad)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .foregroundColor(.primary)
-                .background(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color(.systemGray3), lineWidth: 2)
-                ).padding(.top, 5)
+            InputView(bindingValue: $viewModel.searchText, hintText: "Enter Customer ID (ie: 1)", keyboard: .numberPad)
             
             // Search Button
             Button(action: {
