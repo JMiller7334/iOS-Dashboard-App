@@ -12,58 +12,69 @@ struct WriteTab: View {
     @ObservedObject var viewModel: AppViewModel
     
     var body: some View {
-        
-        VStack {
-            TablePickerView(bindingValue: $viewModel.selectedTable)
-                .padding(.bottom, 5)
-            
-            ActionPickerView(selectedAction: $viewModel.databaseAction)
-            
-            CustomerMetricView(count: $viewModel.customerCount)
-                .padding(.vertical)
-            UsageMetricView(count: $viewModel.customerCount)
-                .padding(.bottom, 30)
-            
-            
-            if viewModel.selectedTable == .tableCustomers {
-                Text("Customer Table Inputs")
-                    .fontWeight(.bold)
-                InputView(bindingValue: $viewModel.customerType, hintText: "Enter a customer type", keyboard: .default)
+        ScrollView {
+            VStack {
+                TablePickerView(bindingValue: $viewModel.selectedTable)
+                    .padding(.bottom, 5)
                 
-                InputView(bindingValue: $viewModel.customerName, hintText: "Enter customer name", keyboard: .default)
+                ActionPickerView(selectedAction: $viewModel.databaseAction)
                 
-                InputView(bindingValue: $viewModel.customerPhone, hintText: "Enter phone number", keyboard: .phonePad)
+                CustomerMetricView(count: $viewModel.customerCount)
+                    .padding(.vertical)
+                UsageMetricView(count: $viewModel.usageCount)
+                    .padding(.bottom, 30)
                 
-                InputView(bindingValue: $viewModel.customerAddress, hintText: "Enter Address", keyboard: .default)
+                if viewModel.databaseAction != .write {
+                    InputView(bindingValue: $viewModel.searchText, hintText: viewModel.databaseAction.searchHint, keyboard: .numberPad)
+                        .padding(.bottom)
+                }
                 
-                InputView(bindingValue: $viewModel.customerEmail, hintText: "Enter email", keyboard: .emailAddress)
                 
-            } else {
-                Text("Customer Usage Inputs")
-                    .fontWeight(.bold)
+                if viewModel.selectedTable == .tableCustomers && viewModel.databaseAction != .delete {
+                    Text("Customer Table Inputs")
+                        .fontWeight(.bold)
+                    InputView(bindingValue: $viewModel.customerType, hintText: "Enter a customer type", keyboard: .default)
+                    
+                    InputView(bindingValue: $viewModel.customerName, hintText: "Enter customer name", keyboard: .default)
+                    
+                    InputView(bindingValue: $viewModel.customerPhone, hintText: "Enter phone number", keyboard: .phonePad)
+                    
+                    InputView(bindingValue: $viewModel.customerAddress, hintText: "Enter Address", keyboard: .default)
+                    
+                    InputView(bindingValue: $viewModel.customerEmail, hintText: "Enter email", keyboard: .emailAddress)
+                    
+                } else if viewModel.selectedTable == .tableUsage && viewModel.databaseAction != .delete {
+                    Text("Customer Usage Inputs")
+                        .fontWeight(.bold)
+                    
+                    InputView(bindingValue: $viewModel.usageCustomerId, hintText: "Enter related customer Id", keyboard: .numberPad)
+                    
+                    InputView(bindingValue: $viewModel.usageMonth, hintText: "Enter month of this record", keyboard: .default)
+                    
+                    InputView(bindingValue: $viewModel.usageAmount, hintText: "Enter usage for whole month", keyboard: .numberPad)
+                }
                 
-                InputView(bindingValue: $viewModel.usageCustomerId, hintText: "Enter related customer Id", keyboard: .numberPad)
+                if viewModel.databaseAction != .write {
+                    OutputView(outputText: $viewModel.outputText)
+                } else {
+                    Spacer()
+                }
                 
-                InputView(bindingValue: $viewModel.usageMonth, hintText: "Enter month of this record", keyboard: .default)
+                Button(action: {
+                    viewModel.writeToDatabase()
+                }) {
+                    Text("Submit")
+                        .frame(maxWidth: .infinity)
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding(13)
+                        .background(Color.blue)
+                        .cornerRadius(8)
+                }.padding(.top, 8)
                 
-                InputView(bindingValue: $viewModel.usageAmount, hintText: "Enter usage for whole month", keyboard: .numberPad)
-            }
-            
-            Spacer()
-            Button(action: {
-                viewModel.writeToDatabase()
-            }) {
-                Text("Submit")
-                    .frame(maxWidth: .infinity)
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding(13)
-                    .background(Color.blue)
-                    .cornerRadius(8)
-            }.padding(.top, 8)
-            
-            
-        }.padding()
+                
+            }.padding()
+        }
     }
 }
 

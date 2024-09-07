@@ -19,10 +19,11 @@ struct ReadTab: View {
             
             CustomerMetricView(count: $viewModel.customerCount)
                 .padding(.vertical)
-            UsageMetricView(count: $viewModel.customerCount)
+            UsageMetricView(count: $viewModel.usageCount)
                 .padding(.bottom, 30)
             
-            OutputView(outputText: viewModel.outputText)
+            OutputView(outputText: $viewModel.outputText)
+                .padding(.vertical)
             
             InputView(bindingValue: $viewModel.searchText, hintText: "Enter Customer ID (ie: 1)", keyboard: .numberPad)
             
@@ -33,10 +34,10 @@ struct ReadTab: View {
                 Text("Search")
                     .frame(maxWidth: .infinity)
                     .font(.headline)
-                    .foregroundColor(.white) // Text color
+                    .foregroundColor(.white)
                     .padding(13)
-                    .background(Color.blue) // Button background color
-                    .cornerRadius(8) // Rounded corners
+                    .background(Color.blue)
+                    .cornerRadius(8)
             }.padding(.top, 8)
             
         }.padding()

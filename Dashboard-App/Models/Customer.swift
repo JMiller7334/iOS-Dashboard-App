@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Customer: Identifiable {
+struct Customer: Identifiable, Codable {
     
-    var id: String
-    var customerType: String
+    var id: Int
+    var customer_type: String
     var name: String
     var phone: String
     var address: String

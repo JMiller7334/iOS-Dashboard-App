@@ -32,6 +32,8 @@
 		9BB33B712C895DDD005B814E /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B702C895DDD005B814E /* Customer.swift */; };
 		9BB33B732C895F57005B814E /* AppTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B722C895F57005B814E /* AppTabs.swift */; };
 		9BB33B752C89804E005B814E /* AvgProfitMetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B742C89804E005B814E /* AvgProfitMetricView.swift */; };
+		9BB33B782C8BF53A005B814E /* MySqlApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B772C8BF53A005B814E /* MySqlApi.swift */; };
+		9BB33B7A2C8BFC1E005B814E /* ApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B792C8BFC1E005B814E /* ApiRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,9 @@
 		9BB33B702C895DDD005B814E /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		9BB33B722C895F57005B814E /* AppTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabs.swift; sourceTree = "<group>"; };
 		9BB33B742C89804E005B814E /* AvgProfitMetricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvgProfitMetricView.swift; sourceTree = "<group>"; };
+		9BB33B772C8BF53A005B814E /* MySqlApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySqlApi.swift; sourceTree = "<group>"; };
+		9BB33B792C8BFC1E005B814E /* ApiRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRepository.swift; sourceTree = "<group>"; };
+		9BB33B7B2C8C0DDD005B814E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +135,8 @@
 		9BB33B142C87D8AC005B814E /* Dashboard-App */ = {
 			isa = PBXGroup;
 			children = (
+				9BB33B7B2C8C0DDD005B814E /* Info.plist */,
+				9BB33B762C8BF517005B814E /* API */,
 				9BB33B672C895A83005B814E /* Charts */,
 				9BB33B4E2C885B3E005B814E /* Tabs */,
 				9BB33B452C882299005B814E /* Components */,
@@ -219,6 +226,15 @@
 				9BB33B6C2C895B7B005B814E /* TotalUsageProfitChart.swift */,
 			);
 			path = Charts;
+			sourceTree = "<group>";
+		};
+		9BB33B762C8BF517005B814E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				9BB33B772C8BF53A005B814E /* MySqlApi.swift */,
+				9BB33B792C8BFC1E005B814E /* ApiRepository.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BB33B7A2C8BFC1E005B814E /* ApiRepository.swift in Sources */,
 				9BB33B6B2C895B3A005B814E /* UsageData.swift in Sources */,
 				9BB33B562C88F9CA005B814E /* ActionPickerView.swift in Sources */,
 				9BB33B492C882541005B814E /* CustomerMetricView.swift in Sources */,
@@ -359,6 +376,7 @@
 				9BB33B752C89804E005B814E /* AvgProfitMetricView.swift in Sources */,
 				9BB33B182C87D8AC005B814E /* ContentView.swift in Sources */,
 				9BB33B162C87D8AC005B814E /* Dashboard_AppApp.swift in Sources */,
+				9BB33B782C8BF53A005B814E /* MySqlApi.swift in Sources */,
 				9BB33B4B2C882A35005B814E /* OutputView.swift in Sources */,
 				9BB33B692C895A9E005B814E /* MonthlyUsageChart.swift in Sources */,
 				9BB33B582C88FADB005B814E /* DatabaseActions.swift in Sources */,
@@ -536,6 +554,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Dashboard-App/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Dashboard-App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -564,6 +583,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Dashboard-App/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Dashboard-App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

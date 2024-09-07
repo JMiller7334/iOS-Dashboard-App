@@ -10,6 +10,10 @@ import SwiftUI
 
 class AppViewModel: ObservableObject {
     
+    //dependencies
+    private let apiRepository = ApiRepository.shared
+    
+    
     //MARK: - SHARED
     @Published var selectedTable: DatabaseTables = .tableCustomers
     @Published var customerCount: Int = 0
@@ -19,6 +23,10 @@ class AppViewModel: ObservableObject {
     @Published var usageList: [UsageData] = PreviewData().sampleData
     
     @Published var currentTab: AppTabs = .Read
+    
+    init(){
+        self.refresh()
+    }
     
     public func getCurrentTableName() -> String {
         switch selectedTable {
@@ -32,7 +40,26 @@ class AppViewModel: ObservableObject {
     }
     
     public func refresh() {
+        apiRepository.fetchCustomerData(searchId: nil, completion: {
+            fetchedCustomers, error in
+            
+            guard error == nil else {
+                return
+            }
+            
+            self.customerList = fetchedCustomers
+            self.customerCount = fetchedCustomers.count
+        })
         
+        apiRepository.fetchUsageRecords(searchId: nil, completion: {
+            fetchedUsage, error in
+            
+            guard error == nil else {
+                return
+            }
+            self.usageList = fetchedUsage
+            self.usageCount = fetchedUsage.count
+        })
     }
     
     

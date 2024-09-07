@@ -9,13 +9,8 @@ import Foundation
 import SwiftUI
 
 struct OutputView: View {
-    private var fillerText = "Results will display here."
-    var outputText: String?
-    
-    init(fillerText: String = "Results will display here.", outputText: String?) {
-        self.fillerText = fillerText
-        self.outputText = outputText
-    }
+    var fillerText: String = "Database output will display here.."
+    @Binding var outputText: String?
 
     var body: some View {
         
@@ -23,7 +18,7 @@ struct OutputView: View {
         TextEditor(text: .constant(outputText ?? fillerText))
             .font(.system(size: 15))
             .disabled(true)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(maxWidth: .infinity, minHeight: 75)
             .padding()
             .background(Color.clear)
             .overlay(
