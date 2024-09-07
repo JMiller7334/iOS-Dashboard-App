@@ -25,8 +25,12 @@ struct WriteTab: View {
                     .padding(.bottom, 30)
                 
                 if viewModel.databaseAction != .write {
-                    InputView(bindingValue: $viewModel.searchText, hintText: viewModel.databaseAction.searchHint, keyboard: .numberPad)
-                        .padding(.bottom)
+                    InputView(bindingValue: $viewModel.searchText, hintText: viewModel.databaseAction.searchHint, keyboard: .numberPad,
+                              
+                        onKeyboardDismissed: {
+                            viewModel.performSearch()
+                    })
+                    .padding(.bottom)
                 }
                 
                 
