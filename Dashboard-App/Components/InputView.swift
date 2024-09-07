@@ -13,6 +13,7 @@ struct InputView: View {
     
     var hintText: String
     var keyboard: UIKeyboardType
+    var onKeyboardDismissed: (() -> Void)?
     
     private let allowedToolbar: [UIKeyboardType] = [.decimalPad, .numberPad, .phonePad, .numbersAndPunctuation]
     
@@ -40,6 +41,11 @@ struct InputView: View {
                     }
                 }
             }
+        .onChange(of: isFocused) {_, newValue in
+            if !newValue {
+                onKeyboardDismissed?()
+            }
+        }
 
     }
 }
@@ -48,7 +54,7 @@ struct InputView_Previews: PreviewProvider {
     @State static var sampleValue = ""
     
     static var previews: some View {
-        InputView(bindingValue: $sampleValue, hintText: "Enter Customer ID", keyboard: .numberPad)
+        InputView(bindingValue: $sampleValue, hintText: "Enter Customer ID", keyboard: .numberPad )
     }
 }
 
