@@ -23,6 +23,7 @@ class AppViewModel: ObservableObject {
     @Published var usageList: [UsageData] = PreviewData().sampleData
     
     @Published var currentTab: AppTabs = .Read
+    @Published var outputText: String? = nil
     
     init(){
         self.refresh()
@@ -68,12 +69,34 @@ class AppViewModel: ObservableObject {
     
     
     //MARK: - READ
-    @Published var outputText: String? = nil
     @Published var searchText: String = ""
     
     
-    public func performSearch(){
+    public func performSearch() {
         
+        //case: customer table
+        if selectedTable == .tableCustomers {
+            apiRepository.fetchCustomerData(searchId: self.searchText, completion: {
+                fetchedCustomers, error in
+                
+                guard !fetchedCustomers.isEmpty else {
+                    self.outputText = "No results for ID: '\(self.searchText)'"
+                    return
+                }
+                
+                var newOutputText = ""
+                for customer in fetchedCustomers {
+                    newOutputText += customer.formatForDisplay()
+                    newOutputText += "\n\n"
+                    
+                }
+                self.outputText = newOutputText
+            })
+        
+        //case: usage table
+        } else {
+            //TODO: IMPLEMENT SEARCH LOGIC
+        }
     }
     
     
