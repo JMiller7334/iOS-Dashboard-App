@@ -59,7 +59,7 @@ class MySqlApi {
          task.resume()
      }
      
-     //MARK: - GET SINGLES CUSTOMER
+     //MARK: - GET SINGLE CUSTOMER
      func fetchCustomerById(searchId: String, completion: @escaping (Result<Customer?, Error>) -> Void) {
          let apiTable = "customers"
          let apiUrl = "\(baseUrl)\(apiTable)?id=\(searchId)"
