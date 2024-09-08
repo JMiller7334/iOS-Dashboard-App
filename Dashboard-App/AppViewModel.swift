@@ -63,6 +63,11 @@ class AppViewModel: ObservableObject {
         })
     }
     
+    public func onTabChanged(){
+        self.searchText = ""
+        self.outputText = nil
+    }
+    
     
     //MARK: - STATS
     @Published var avgMonthlyProfit: Double = 0.0
@@ -87,7 +92,7 @@ class AppViewModel: ObservableObject {
                 var newOutputText = ""
                 for customer in fetchedCustomers {
                     newOutputText += customer.formatForDisplay()
-                    newOutputText += "\n\n"
+                    newOutputText += "\n\n\n"
                     
                 }
                 self.outputText = newOutputText
@@ -95,7 +100,20 @@ class AppViewModel: ObservableObject {
         
         //case: usage table
         } else {
-            //TODO: IMPLEMENT SEARCH LOGIC
+            apiRepository.fetchUsageRecords(searchId: self.searchText, completion: { fetchedRecords, error in
+                
+                guard !fetchedRecords.isEmpty else {
+                    self.outputText = "No results for ID: '\(self.searchText)'"
+                    return
+                }
+                
+                var newOutputText = ""
+                for record in fetchedRecords {
+                    newOutputText += record.formatForDisplay()
+                    newOutputText += "\n\n\n"
+                }
+                self.outputText = newOutputText
+            })
         }
     }
     

@@ -23,6 +23,7 @@ struct ContentView: View {
                     Spacer()
                     Button(action: {
                         viewModel.currentTab = .Read
+                        viewModel.onTabChanged()
                     }) {
                         VStack {
                             Image(systemName: "tray.full")
@@ -32,6 +33,7 @@ struct ContentView: View {
                     Spacer()
                     Button(action: {
                         viewModel.currentTab = .Stats
+                        viewModel.onTabChanged()
                     }) {
                         VStack {
                             Image(systemName: "chart.bar")
@@ -41,6 +43,7 @@ struct ContentView: View {
                     Spacer()
                     Button(action: {
                         viewModel.currentTab = .Write
+                        viewModel.onTabChanged()
                     }) {
                         VStack {
                             Image(systemName: "pencil.and.outline")

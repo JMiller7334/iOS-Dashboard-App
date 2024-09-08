@@ -25,14 +25,14 @@ struct TotalUsageAndProfitChart: View {
                 
                 ForEach(data) { item in
                     BarMark(
-                        x: .value("Month", item.usage_month),
-                        y: .value("Usage", item.customer_usage),
+                        x: .value("Month", item.usageMonth),
+                        y: .value("Usage", item.customerUsage),
                         width: .fixed(20)
                     )
                     .foregroundStyle(.blue)
                     
                     BarMark(
-                        x: .value("Month", item.usage_month),
+                        x: .value("Month", item.usageMonth),
                         y: .value("Profit", item.estProfit),
                         width: .fixed(20)
                     )
