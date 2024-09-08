@@ -33,11 +33,15 @@ struct InputView: View {
             .autocorrectionDisabled(true)
             .toolbar {
                 if isFocused {
-                    ToolbarItemGroup(placement: .keyboard) {
+                    ToolbarItemGroup(placement: .automatic) {
                         Spacer()
-                        Button("Done") {
+                        Button("Close Keyboard") {
                             isFocused = false
                         }
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(Color.accentColor, lineWidth: 1.5)
+                        )
                     }
                 }
             }

@@ -25,7 +25,7 @@ struct OutputView: View {
                     .padding()
                     .background(Color.clear)
             }
-            .frame(maxWidth: .infinity, minHeight: 75, maxHeight: 300) // Adjust height as needed
+            .frame(maxWidth: .infinity, minHeight: 75, maxHeight: 300)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color(.systemGray), lineWidth: 1)

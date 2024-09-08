@@ -9,7 +9,7 @@ import SwiftUI
 import Charts
 
 struct TotalUsageAndProfitChart: View {
-    @Binding var data: [UsageData]
+    @Binding var data: [MonthlyUsageData]
     
     var body: some View {
         Chart {
@@ -25,15 +25,15 @@ struct TotalUsageAndProfitChart: View {
                 
                 ForEach(data) { item in
                     BarMark(
-                        x: .value("Month", item.usageMonth),
-                        y: .value("Usage", item.customerUsage),
+                        x: .value("Month", item.month),
+                        y: .value("Usage", item.totalUsage),
                         width: .fixed(20)
                     )
                     .foregroundStyle(.blue)
                     
                     BarMark(
-                        x: .value("Month", item.usageMonth),
-                        y: .value("Profit", item.estProfit),
+                        x: .value("Month", item.month),
+                        y: .value("Profit", item.totalProfit),
                         width: .fixed(20)
                     )
                     .foregroundStyle(.orange)

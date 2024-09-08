@@ -34,6 +34,7 @@
 		9BB33B752C89804E005B814E /* AvgProfitMetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B742C89804E005B814E /* AvgProfitMetricView.swift */; };
 		9BB33B782C8BF53A005B814E /* MySqlApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B772C8BF53A005B814E /* MySqlApi.swift */; };
 		9BB33B7A2C8BFC1E005B814E /* ApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B792C8BFC1E005B814E /* ApiRepository.swift */; };
+		9BB33B7D2C8D4C7B005B814E /* MonthlyUsageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B7C2C8D4C7B005B814E /* MonthlyUsageData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		9BB33B772C8BF53A005B814E /* MySqlApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySqlApi.swift; sourceTree = "<group>"; };
 		9BB33B792C8BFC1E005B814E /* ApiRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRepository.swift; sourceTree = "<group>"; };
 		9BB33B7B2C8C0DDD005B814E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9BB33B7C2C8D4C7B005B814E /* MonthlyUsageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyUsageData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 			children = (
 				9BB33B6A2C895B3A005B814E /* UsageData.swift */,
 				9BB33B702C895DDD005B814E /* Customer.swift */,
+				9BB33B7C2C8D4C7B005B814E /* MonthlyUsageData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				9BB33B492C882541005B814E /* CustomerMetricView.swift in Sources */,
 				9BB33B522C88F548005B814E /* WriteTab.swift in Sources */,
 				9BB33B732C895F57005B814E /* AppTabs.swift in Sources */,
+				9BB33B7D2C8D4C7B005B814E /* MonthlyUsageData.swift in Sources */,
 				9BB33B752C89804E005B814E /* AvgProfitMetricView.swift in Sources */,
 				9BB33B182C87D8AC005B814E /* ContentView.swift in Sources */,
 				9BB33B162C87D8AC005B814E /* Dashboard_AppApp.swift in Sources */,

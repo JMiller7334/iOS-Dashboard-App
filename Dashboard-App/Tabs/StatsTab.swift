@@ -32,7 +32,7 @@ struct StatsTab: View {
                         Spacer()
                     }.padding(.horizontal)
                     
-                    MonthlyUsageChart(data: $viewModel.usageList)
+                    MonthlyUsageChart(data: $viewModel.monthlyUsageList)
                     
                     HStack {
                         Text("Total Usage & Profits: ")
@@ -40,7 +40,7 @@ struct StatsTab: View {
                     }.padding(.horizontal)
                         .padding(.top)
                     
-                    TotalUsageAndProfitChart(data: $viewModel.usageList)
+                    TotalUsageAndProfitChart(data: $viewModel.monthlyUsageList)
                     
                     // Legend
                     HStack {

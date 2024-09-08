@@ -28,33 +28,35 @@ struct UsageData: Identifiable, Codable {
         case customerUsage = "customer_usage"
     }
     
+    private func formattedMonth() -> String {
+        let dateFormatter = DateFormatter()
+           
+        dateFormatter.dateFormat = "MMM"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+           
+        if let date = dateFormatter.date(from: usageMonth.capitalized) {
+            dateFormatter.dateFormat = "MMMM"
+            return dateFormatter.string(from: date)
+            
+        } else {
+            return usageMonth
+        }
+    }
+    
+    
     public func formatForDisplay() -> String {
         return """
+    -----------------------------------------
     ID: \(self.id)
-    Related Customer ID: \(self.customerId)
-    Month of Usage: \(self.usageMonth)
-    Amount of Usage: \(self.customerUsage)kWh
-    
-    Amount Billed: $\(estProfit)
+    Related customer ID: \(self.customerId)
+    Month of usage: \(formattedMonth())
+    Amount of usage: \(self.customerUsage)kWh
+    -----------------------------------------
+    Amount billed: $\(estProfit)
+    -----------------------------------------
     """
     }
     
-}
-
-// Sample data for previews
-import SwiftUI
-
-
-//MARK: TEST DATA
-class PreviewData: ObservableObject {
-    @Published var sampleData: [UsageData] = [
-        UsageData(customerId: 0, usageMonth: "Jan", customerUsage: 120.0),
-        UsageData(customerId: 1, usageMonth: "Feb", customerUsage: 150.0),
-        UsageData(customerId: 2, usageMonth: "Mar", customerUsage: 110.0),
-        UsageData(customerId: 3, usageMonth: "Apr", customerUsage: 140.0),
-        UsageData(customerId: 4, usageMonth: "May", customerUsage: 130.0),
-        UsageData(customerId: 5, usageMonth: "Jun", customerUsage: 160.0)
-    ]
 }
 
 

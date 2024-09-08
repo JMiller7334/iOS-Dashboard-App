@@ -39,12 +39,14 @@ struct Customer: Identifiable, Codable {
     
     func formatForDisplay() -> String {
         return """
+        -----------------------------------------
         ID: \(id)
         Customer Type: \(customerType)
         Name: \(name)
         Phone: \(self.formattedPhone())
         Address: \(address)
         Email: \(email)
+        -----------------------------------------
         """
     }
 }

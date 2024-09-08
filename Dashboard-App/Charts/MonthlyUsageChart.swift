@@ -9,7 +9,7 @@ import Charts
 
 // View showing the Monthly Usage Trend Chart
 struct MonthlyUsageChart: View {
-    @Binding var data: [UsageData]
+    @Binding var data: [MonthlyUsageData]
     
     var body: some View {
         Chart {
@@ -25,8 +25,8 @@ struct MonthlyUsageChart: View {
             } else {
                 
                 ForEach(data){ item in
-                    LineMark(x: .value("Month", item.usageMonth),
-                        y: .value("Usage", item.customerUsage))
+                    LineMark(x: .value("Month", item.month),
+                        y: .value("Usage", item.totalUsage))
                     .foregroundStyle(.blue)
                     .interpolationMethod(.catmullRom)
                     .symbol(.circle)
