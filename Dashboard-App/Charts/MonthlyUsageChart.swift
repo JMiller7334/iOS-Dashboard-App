@@ -25,7 +25,7 @@ struct MonthlyUsageChart: View {
             } else {
                 
                 ForEach(data){ item in
-                    LineMark(x: .value("Month", item.month),
+                    LineMark(x: .value("Month", item.month.capitalizingFirstLetter()),
                         y: .value("Usage", item.totalUsage))
                     .foregroundStyle(.blue)
                     .interpolationMethod(.catmullRom)

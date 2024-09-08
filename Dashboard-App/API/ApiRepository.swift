@@ -39,7 +39,7 @@ class ApiRepository {
                 }
                 
                 //logging
-                print("api payload: \(customerArray) | server error: \(getCustomerError?.localizedDescription ?? "no error")")
+                print("\n api payload: \(customerArray) | server error: \(getCustomerError?.localizedDescription ?? "no error") \n")
                 completion(customerArray, getCustomerError)
             })
             
@@ -62,7 +62,7 @@ class ApiRepository {
                 }
                 
                 //logging
-                print("api payload: \(customerArray) | server error: \(getCustomerError?.localizedDescription ?? "no error")")
+                print("\n\n api payload: \(customerArray) | server error: \(getCustomerError?.localizedDescription ?? "no error")")
                 completion(customerArray, getCustomerError)
             }
         }

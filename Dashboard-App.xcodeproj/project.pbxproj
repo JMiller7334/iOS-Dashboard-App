@@ -35,6 +35,7 @@
 		9BB33B782C8BF53A005B814E /* MySqlApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B772C8BF53A005B814E /* MySqlApi.swift */; };
 		9BB33B7A2C8BFC1E005B814E /* ApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B792C8BFC1E005B814E /* ApiRepository.swift */; };
 		9BB33B7D2C8D4C7B005B814E /* MonthlyUsageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B7C2C8D4C7B005B814E /* MonthlyUsageData.swift */; };
+		9BB33B802C8D76D1005B814E /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB33B7F2C8D76D1005B814E /* StringUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		9BB33B792C8BFC1E005B814E /* ApiRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRepository.swift; sourceTree = "<group>"; };
 		9BB33B7B2C8C0DDD005B814E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9BB33B7C2C8D4C7B005B814E /* MonthlyUsageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyUsageData.swift; sourceTree = "<group>"; };
+		9BB33B7F2C8D76D1005B814E /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 		9BB33B142C87D8AC005B814E /* Dashboard-App */ = {
 			isa = PBXGroup;
 			children = (
+				9BB33B7E2C8D76BD005B814E /* Utils */,
 				9BB33B7B2C8C0DDD005B814E /* Info.plist */,
 				9BB33B762C8BF517005B814E /* API */,
 				9BB33B672C895A83005B814E /* Charts */,
@@ -238,6 +241,14 @@
 				9BB33B792C8BFC1E005B814E /* ApiRepository.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		9BB33B7E2C8D76BD005B814E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9BB33B7F2C8D76D1005B814E /* StringUtils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -382,6 +393,7 @@
 				9BB33B162C87D8AC005B814E /* Dashboard_AppApp.swift in Sources */,
 				9BB33B782C8BF53A005B814E /* MySqlApi.swift in Sources */,
 				9BB33B4B2C882A35005B814E /* OutputView.swift in Sources */,
+				9BB33B802C8D76D1005B814E /* StringUtils.swift in Sources */,
 				9BB33B692C895A9E005B814E /* MonthlyUsageChart.swift in Sources */,
 				9BB33B582C88FADB005B814E /* DatabaseActions.swift in Sources */,
 				9BB33B502C885B54005B814E /* ReadTab.swift in Sources */,

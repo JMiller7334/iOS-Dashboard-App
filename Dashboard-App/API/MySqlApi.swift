@@ -49,6 +49,8 @@ class MySqlApi {
                  DispatchQueue.main.async {
                      completion(.success(decodedResponse))
                  }
+                 
+                 
              } catch {
                  DispatchQueue.main.async {
                      print("Decoding error: \(error)")
