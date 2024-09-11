@@ -11,10 +11,86 @@ class MySqlApi {
     static let shared = MySqlApi()
     private let baseUrl = "http://jacobjmiller.com:8080/"
     
-    //MARK: REQUEST HANDLER
-    private func performRequest<T: Decodable>(url: URL, responseType: T.Type, desiredStatus: [Int], completion: @escaping (Result<T, Error>) -> Void) {
+    
+    //MARK: - SHARED API CALL
+    func writeTables<T: Identifiable & Encodable>(dataClass: T, requestMethod: String, apiTable: String, completion: @escaping (Result<String, Error>) -> Void) {
+        
+        let apiTable = apiTable
+        var apiUrl = "\(baseUrl)\(apiTable)"
+        if requestMethod == "PUT" {
+            apiUrl += "/\(dataClass.id)"
+        }
+        
+        guard let url = URL(string: apiUrl) else {
+            completion(.failure(URLError(.badURL)))
+            return
+        }
+        
+        let desiredStatus: [Int] = [200, 201, 204]
+        performWriteRequest(encodableData: dataClass, url: url, requestMethod: requestMethod, desiredStatus: desiredStatus) { result in
+            switch result {
+            case .success(let success):
+                completion(.success(success))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+    }
+    
+    
+    // MARK: - WRITE HANDLER
+    private func performWriteRequest<T: Encodable & Identifiable>(
+        encodableData: T?,
+        url: URL,
+        requestMethod: String,
+        desiredStatus: [Int],
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = requestMethod
+        if ["PUT", "POST"].contains(requestMethod) {
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        }
+        
+        if let data = encodableData, ["PUT", "POST"].contains(requestMethod) {
+            do {
+                let jsonData = try JSONEncoder().encode(data)
+                request.httpBody = jsonData
+            } catch {
+                completion(.failure(error))
+                return
+            }
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) {
+            data, response, error in
+            
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse,
+               desiredStatus.contains(httpResponse.statusCode) {
+                completion(.success("Write API operation successful"))
+                
+            } else {
+                let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
+                let errorMessage = "Write API operation failed with status code: \(statusCode)"
+                completion(.failure(NSError(domain: "", code: statusCode, userInfo: [NSLocalizedDescriptionKey: errorMessage])))
+            }
+        }
+        task.resume()
+    }
+
+
+    
+    //MARK: - READ HANDLER
+    private func performReadRequest<T: Decodable>(url: URL, responseType: T.Type, requestMethod: (String), desiredStatus: [Int], completion: @escaping (Result<T, Error>) -> Void) {
+        
          var request = URLRequest(url: url)
-         request.httpMethod = "GET"
+         request.httpMethod = requestMethod
 
          let task = URLSession.shared.dataTask(with: request) { data, response, error in
              if let error = error {
@@ -70,7 +146,7 @@ class MySqlApi {
              return
          }
          
-         performRequest(url: url, responseType: Customer.self, desiredStatus: [200]) { result in
+         performReadRequest(url: url, responseType: Customer.self, requestMethod: "GET", desiredStatus: [200]) { result in
              switch result {
              case .success(let customer):
                  completion(.success(customer))
@@ -89,7 +165,7 @@ class MySqlApi {
              return
          }
 
-         performRequest(url: url, responseType: [Customer].self, desiredStatus: [200]) { result in
+         performReadRequest(url: url, responseType: [Customer].self, requestMethod: "GET", desiredStatus: [200]) { result in
              switch result {
              case .success(let customers):
                  completion(.success(customers))
@@ -117,7 +193,7 @@ class MySqlApi {
         }
         
         //call
-        performRequest(url: url, responseType: [UsageData].self, desiredStatus: [200]) { result in
+        performReadRequest(url: url, responseType: [UsageData].self, requestMethod: "GET", desiredStatus: [200]) { result in
             
             switch result {
             case .success(let success):

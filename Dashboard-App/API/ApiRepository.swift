@@ -12,6 +12,32 @@ class ApiRepository {
     private let mySqlApi = MySqlApi.shared
     
     
+    //MARK: - WRITE TABLES
+    public func handleDatabaseWrite <T: Encodable & Identifiable> (dataClass: T, httpMethod: String, sqlTable: String, completion: @escaping (String, Error?) -> Void) {
+        
+        mySqlApi.writeTables(dataClass: dataClass, requestMethod: httpMethod, apiTable: sqlTable, completion: {
+            
+            result in
+            var responseString: String
+            var responseError: Error?
+            
+            switch result {
+            case .success(let success):
+                responseString = success
+                responseError = nil
+                
+            case .failure(let failure):
+                responseString = ""
+                responseError = failure
+            }
+            
+            //logging
+            print("\n api response:@\(sqlTable) for \(httpMethod): \(responseString) | server error: \(responseError?.localizedDescription ?? "no error") \n")
+            completion(responseString, responseError)
+        })
+    }
+    
+    
     //MARK: - GET CUSTOMERS
     public func fetchCustomerData(searchId: String?, completion: @escaping ([Customer], Error?) -> Void) {
         
