@@ -7,18 +7,28 @@
 
 import Foundation
 
+enum WriteTableError: Error {
+    case missingDataClass
+}
+
 class MySqlApi {
     static let shared = MySqlApi()
     private let baseUrl = "http://jacobjmiller.com:8080/"
     
     
     //MARK: - SHARED API CALL
-    func writeTables<T: Identifiable & Encodable>(dataClass: T, requestMethod: String, apiTable: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func writeTables<T: Identifiable & Encodable>(dataClass: T?, requestMethod: String, apiTable: String, completion: @escaping (Result<String, Error>) -> Void) {
+        
+
         
         let apiTable = apiTable
         var apiUrl = "\(baseUrl)\(apiTable)"
-        if requestMethod == "PUT" {
-            apiUrl += "/\(dataClass.id)"
+        if requestMethod == "PUT" || requestMethod == "DELETE" {
+            guard let validDataClass = dataClass else {
+                completion(.failure(WriteTableError.missingDataClass))
+                return
+            }
+            apiUrl += "?id=\(validDataClass.id)"
         }
         
         guard let url = URL(string: apiUrl) else {

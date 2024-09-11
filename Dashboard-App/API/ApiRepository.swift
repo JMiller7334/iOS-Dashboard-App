@@ -13,7 +13,7 @@ class ApiRepository {
     
     
     //MARK: - WRITE TABLES
-    public func handleDatabaseWrite <T: Encodable & Identifiable> (dataClass: T, httpMethod: String, sqlTable: String, completion: @escaping (String, Error?) -> Void) {
+    public func handleDatabaseWrite <T: Identifiable & Encodable> (dataClass: T?, httpMethod: String, sqlTable: String, completion: @escaping (String, Error?) -> Void) {
         
         mySqlApi.writeTables(dataClass: dataClass, requestMethod: httpMethod, apiTable: sqlTable, completion: {
             

@@ -219,8 +219,126 @@ class AppViewModel: ObservableObject {
     }
     
     
+    //MARK: - VALIDAITON
+    private func validateDate(validInput: String) -> String? {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "MMM"
+        
+        let lowercasedInput = validInput.lowercased()
+        
+        if formatter.date(from: lowercasedInput) != nil {
+            return validInput.lowercased()
+        }
+        guard let validMonth = formatter.date(from: lowercasedInput) else {
+            return nil
+        }
+        return formatter.string(from: validMonth).lowercased()
+    }
+    
+    
+    //MARK: - WRITTING USAGE
+    private func buildUsageFromInuts(fromExistingId: String?) -> UsageData? {
+        //input empty validation
+        guard usageAmount != "",
+              usageMonth != "",
+                usageCustomerId != "" else {
+            //TODO: Notify user empty inputs
+            return nil
+        }
+        //input validation
+        guard let validUsageAmount = Double(usageAmount),
+              let validUsageMonth = self.validateDate(validInput: usageMonth),
+              let validUsageCustId = Int(usageCustomerId) else {
+            //TODO: NOTIFY USER BAD INPUT
+            return nil
+        }
+        
+        let newUsageData: UsageData
+        if let validExistingId = fromExistingId {
+            guard let existingId = Int(validExistingId) else {
+                //TODO: NOTIFY USER
+                return nil
+            }
+            
+            newUsageData = UsageData(id: validUsageCustId, customerId: validUsageCustId, usageMonth: validUsageMonth, customerUsage: validUsageAmount)
+            
+        } else {
+            newUsageData = UsageData(customerId: validUsageCustId, usageMonth: validUsageMonth, customerUsage: validUsageAmount)
+        }
+        return newUsageData
+    }
+    
+    
+    private func handleUsageWrite(){
+        var httpMethod: String // "PUT", POST, DELETE
+        var dataClass: UsageData?
+        let sqlTable = "usage"
+        
+        switch databaseAction {
+            
+        //UPDATE
+        case .update:
+            httpMethod = "PUT"
+            guard searchText != "", (Int(searchText) != nil) else {
+                //TODO: NOTIFY USER
+                return
+            }
+            dataClass = buildUsageFromInuts(fromExistingId: searchText)
+            
+        //DELETE
+        case .delete:
+            httpMethod = "DELETE"
+            guard !searchText.isEmpty, searchText != "",
+                  let validDelId = Int(searchText) else {
+                
+                //TODO: notify user
+                return
+            }
+            dataClass = UsageData(id: validDelId, customerId: 0, usageMonth: "", customerUsage: 0.00)
+            
+        //CREATE
+        case .write:
+            httpMethod = "POST"
+            dataClass = buildUsageFromInuts(fromExistingId: nil)
+        }
+        
+        //validate data class validity
+        guard let validDataClass = dataClass else {
+            //TODO: NOTIFY USER
+            return
+        }
+        
+        //API CALL
+        self.apiRepository.handleDatabaseWrite(dataClass: validDataClass, httpMethod: httpMethod, sqlTable: sqlTable, completion: { result, error  in
+            
+            //case: write failure, notify user
+            if let error = error {
+                //TODO: NOTIFY USER
+            
+            //case: write success, refresh data
+            } else {
+                self.refresh()
+            }
+        })
+    }
+    
+    //MARK: WRITING CUSOTMERS
+    private func writeCustomers(){
+        //TODO: logic
+    }
+    
+    
+    //MARK: WRITTING DATABASE:
     public func writeToDatabase(){
         
+        switch selectedTable {
+        case .tableCustomers:
+            self.writeCustomers()
+            
+        case .tableUsage:
+            self.handleUsageWrite()
+        }
     }
 }
 
