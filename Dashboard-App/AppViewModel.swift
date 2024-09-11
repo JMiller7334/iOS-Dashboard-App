@@ -23,30 +23,40 @@ class AppViewModel: ObservableObject {
         case idInput
         case monthInput
         case apiError
+        case invalidEmail
+        case invalidPhoneNumber
     }
     
     private func alertMessage(for type: AlertType) {
         switch type {
         case .invalidInput:
-            alertTitle = "Input Error"
-            alertMessage = "The input you provided seems to be incorrect. Please check and try again."
-            
-        case .emptyField:
-            alertTitle = "Missing Information"
-            alertMessage = "Some required fields are missing or empty. Please fill out all fields and try again."
-            
-        case .idInput:
-            alertTitle = "Invalid ID"
-            alertMessage = "The ID entered is invalid. Please ensure it is a valid number and try again."
-            
-        case .monthInput:
-            alertTitle = "Invalid Month"
-            alertMessage = "The month entered is not recognized. Please enter a valid month abbreviation.\n\n(ie: Jan, Feb) or full month name."
-            
-        case .apiError:
-            alertTitle = "Request Error"
-            alertMessage = "An error occurred while processing your request. Please check your network connection or try again later."
-        }
+               alertTitle = "Input Error"
+               alertMessage = "The input you provided seems to be incorrect. Please check and try again."
+               
+           case .emptyField:
+               alertTitle = "Missing Information"
+               alertMessage = "Some required fields are missing or empty. Please fill out all fields and try again."
+               
+           case .idInput:
+               alertTitle = "Invalid ID"
+               alertMessage = "The ID entered is invalid. Please ensure it is a valid number and try again."
+               
+           case .monthInput:
+               alertTitle = "Invalid Month"
+               alertMessage = "The month entered is not recognized. Please enter a valid month abbreviation (e.g., Jan, Feb) or full month name."
+               
+           case .apiError:
+               alertTitle = "Request Error"
+               alertMessage = "An error occurred while processing your request. Please check your network connection or try again later."
+               
+           case .invalidEmail:
+               alertTitle = "Invalid Email Address"
+               alertMessage = "The email address entered is not valid. Please enter a valid email address (e.g., example@domain.com)."
+               
+           case .invalidPhoneNumber:
+               alertTitle = "Invalid Phone Number"
+               alertMessage = "The phone number entered is not valid. Please enter a phone number in the format xxx-xxx-xxxx."
+           }
         showAlert = true
     }
     private func triggerAlert(alertType: AlertType) {
@@ -382,8 +392,111 @@ class AppViewModel: ObservableObject {
     }
     
     //MARK: WRITING CUSOTMERS
-    private func writeCustomers(){
-        //TODO: logic
+    private func buildCustomerFromInputs(fromExistingId: String?) -> Customer? {
+        //input empty validation
+        guard customerName != "",
+                customerType != "",
+                customerEmail != "",
+                customerPhone != "",
+                customerAddress != "" else {
+            
+            self.triggerAlert(alertType: .emptyField)
+            
+            return nil
+        }
+        
+        // Input validation
+        // Validate phone number
+        let phoneNumberRegex = "^\\d{3}-\\d{3}-\\d{4}$" // Example format: xxx-xxx-xxxx
+        let phonePredicate = NSPredicate(format: "SELF MATCHES %@", phoneNumberRegex)
+        guard phonePredicate.evaluate(with: customerPhone) else {
+            self.triggerAlert(alertType: .invalidPhoneNumber)
+            return nil
+        }
+        
+        // Validate email address
+        let emailRegex = "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$" // Basic email validation
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        guard emailPredicate.evaluate(with: customerEmail) else {
+            self.triggerAlert(alertType: .invalidEmail)
+            return nil
+        }
+        
+        let newCustomerData: Customer
+        if let validExistingId = fromExistingId {
+            guard let validIntId = Int(validExistingId) else {
+                self.triggerAlert(alertType: .idInput)
+                return nil
+            }
+            
+            newCustomerData = Customer(id: validIntId, customerType: customerType, name: customerName, phone: customerPhone, address: customerAddress, email: customerEmail)
+            
+        } else {
+            newCustomerData = Customer(id: 0, customerType: customerType, name: customerName, phone: customerPhone, address: customerAddress, email: customerEmail)
+        }
+        return newCustomerData
+    }
+    
+    
+    private func handleCustomerWrite(){
+        var httpMethod: String // "PUT", POST, DELETE
+        var dataClass: Customer?
+        let sqlTable = "customers"
+        
+        switch databaseAction {
+            
+        //UPDATE
+        case .update:
+            httpMethod = "PUT"
+            guard searchText != "", (Int(searchText) != nil) else {
+                self.triggerAlert(alertType: .idInput)
+                
+                return
+            }
+            dataClass = buildCustomerFromInputs(fromExistingId: searchText)
+            
+        //DELETE
+        case .delete:
+            httpMethod = "DELETE"
+            guard !searchText.isEmpty, searchText != "",
+                  let validDelId = Int(searchText) else {
+                self.triggerAlert(alertType: .idInput)
+
+                return
+            }
+            dataClass = Customer(id: validDelId, customerType: "", name: "", phone: "", address: "", email: "")
+            
+        //CREATE
+        case .write:
+            httpMethod = "POST"
+            dataClass = buildCustomerFromInputs(fromExistingId: nil)
+        }
+        
+        //validate data class validity
+        guard let validDataClass = dataClass else {
+            return
+        }
+        
+        //API CALL
+        self.apiRepository.handleDatabaseWrite(dataClass: validDataClass, httpMethod: httpMethod, sqlTable: sqlTable, completion: { result, error  in
+            
+            DispatchQueue.main.async {
+                
+                //case: write failure, notify user
+                if let error = error {
+                    self.triggerAlert(alertType: .apiError)
+                    
+                //case: write success, refresh data
+                } else {
+                    self.customerName = ""
+                    self.customerEmail = ""
+                    self.customerPhone = ""
+                    self.customerAddress = ""
+                    self.customerType = ""
+                    self.refresh()
+                }
+            }
+        })
     }
     
     
@@ -392,7 +505,7 @@ class AppViewModel: ObservableObject {
         
         switch selectedTable {
         case .tableCustomers:
-            self.writeCustomers()
+            self.handleCustomerWrite()
             
         case .tableUsage:
             self.handleUsageWrite()
