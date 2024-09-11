@@ -11,7 +11,6 @@ import Combine
 
 class AppViewModel: ObservableObject {
     
-    
     //MARK: - ALERTS
     @Published var showAlert: Bool = false
     @Published var alertMessage: String = ""
@@ -392,6 +391,21 @@ class AppViewModel: ObservableObject {
     }
     
     //MARK: WRITING CUSOTMERS
+    private func validatePhoneNumber(_ phoneNumber: String) -> Bool {
+        let phoneNumberPatterns = [
+            "^\\d{3}-\\d{3}-\\d{4}$", // Format: xxx-xxx-xxxx
+            "^\\d{10}$"               // Format: xxxxxxxxxx
+        ]
+        for pattern in phoneNumberPatterns {
+            let phonePredicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+            if phonePredicate.evaluate(with: phoneNumber) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    
     private func buildCustomerFromInputs(fromExistingId: String?) -> Customer? {
         //input empty validation
         guard customerName != "",
@@ -407,9 +421,7 @@ class AppViewModel: ObservableObject {
         
         // Input validation
         // Validate phone number
-        let phoneNumberRegex = "^\\d{3}-\\d{3}-\\d{4}$" // Example format: xxx-xxx-xxxx
-        let phonePredicate = NSPredicate(format: "SELF MATCHES %@", phoneNumberRegex)
-        guard phonePredicate.evaluate(with: customerPhone) else {
+        guard validatePhoneNumber(customerPhone) else {
             self.triggerAlert(alertType: .invalidPhoneNumber)
             return nil
         }
