@@ -8,9 +8,9 @@
 import Foundation
 
 enum DatabaseActions: String, CaseIterable {
-    case update = "update"
-    case delete = "delete"
-    case write = "write"
+    case update = "Update"
+    case delete = "Delete"
+    case write = "Write"
     
     // Computed property to get the search hint based on the action
     var searchHint: String {
@@ -18,9 +18,9 @@ enum DatabaseActions: String, CaseIterable {
         case .write:
             return "nil"
         case .update:
-            return "Enter an id to update"
+            return "Enter an id to update (ie: 1)"
         case .delete:
-            return "Enter an id to delete"
+            return "Enter an id to delete (ie: 1)"
         }
     }
 }

@@ -4,6 +4,7 @@ struct ContentView: View {
     @StateObject private var viewModel = AppViewModel()
     
     private let buttonHeight: CGFloat = 50  // Estimated height for buttons
+    private var navtitle = "Read"
 
     var body: some View {
         NavigationView {
@@ -64,7 +65,8 @@ struct ContentView: View {
                 }
             }
             
-            .navigationBarTitle(Text(viewModel.currentTab.rawValue), displayMode: .inline)
+
+            .navigationBarTitle(Text(viewModel.navTitle), displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     refreshButton

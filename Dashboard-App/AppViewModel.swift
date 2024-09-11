@@ -15,6 +15,7 @@ class AppViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var alertMessage: String = ""
     @Published var alertTitle: String = ""
+    @Published var navTitle: String = "Read"
     
     private enum AlertType {
         case invalidInput
@@ -170,6 +171,12 @@ class AppViewModel: ObservableObject {
     }
     
     public func onTabChanged(){
+        if currentTab == .Write {
+            self.navTitle = databaseAction.rawValue
+        } else {
+            self.navTitle = currentTab.rawValue
+        }
+        
         self.searchText = ""
         self.outputText = nil
     }
@@ -233,7 +240,11 @@ class AppViewModel: ObservableObject {
     
     
     //MARK: - WRITE
-    @Published var databaseAction: DatabaseActions = .write
+    @Published var databaseAction: DatabaseActions = .write {
+        didSet {
+            self.navTitle = self.databaseAction.rawValue
+        }
+    }
     
     //customer records inputs
     @Published var customerType: String = ""
