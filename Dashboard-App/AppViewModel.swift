@@ -7,9 +7,53 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 class AppViewModel: ObservableObject {
     
+    
+    //MARK: - ALERTS
+    @Published var showAlert: Bool = false
+    @Published var alertMessage: String = ""
+    @Published var alertTitle: String = ""
+    
+    private enum AlertType {
+        case invalidInput
+        case emptyField
+        case idInput
+        case monthInput
+        case apiError
+    }
+    
+    private func alertMessage(for type: AlertType) {
+        switch type {
+        case .invalidInput:
+            alertTitle = "Input Error"
+            alertMessage = "The input you provided seems to be incorrect. Please check and try again."
+            
+        case .emptyField:
+            alertTitle = "Missing Information"
+            alertMessage = "Some required fields are missing or empty. Please fill out all fields and try again."
+            
+        case .idInput:
+            alertTitle = "Invalid ID"
+            alertMessage = "The ID entered is invalid. Please ensure it is a valid number and try again."
+            
+        case .monthInput:
+            alertTitle = "Invalid Month"
+            alertMessage = "The month entered is not recognized. Please enter a valid month abbreviation.\n\n(ie: Jan, Feb) or full month name."
+            
+        case .apiError:
+            alertTitle = "Request Error"
+            alertMessage = "An error occurred while processing your request. Please check your network connection or try again later."
+        }
+        showAlert = true
+    }
+    private func triggerAlert(alertType: AlertType) {
+        alertMessage(for: alertType)
+     }
+    
+    //MARK: - VM PROPERTIES
     //dependencies
     private let apiRepository = ApiRepository.shared
     
@@ -65,6 +109,7 @@ class AppViewModel: ObservableObject {
     }
     
     
+    //MARK: GEN METRICS FUNC
     /*generate data for charts and metrics **/
     private func generateMetricData() {
         self.monthlyUsageList = []
@@ -85,6 +130,7 @@ class AppViewModel: ObservableObject {
     }
 
     
+    //MARK: REFRESH FUNC
     public func refresh() {
         self.searchText = ""
         self.outputText = nil
@@ -129,7 +175,6 @@ class AppViewModel: ObservableObject {
     
     
     public func performSearch() {
-        
         //case: customer table
         if selectedTable == .tableCustomers {
             apiRepository.fetchCustomerData(searchId: self.searchText, completion: {
@@ -231,6 +276,7 @@ class AppViewModel: ObservableObject {
             return validInput.lowercased()
         }
         guard let validMonth = formatter.date(from: lowercasedInput) else {
+            self.triggerAlert(alertType: .monthInput)
             return nil
         }
         return formatter.string(from: validMonth).lowercased()
@@ -243,21 +289,27 @@ class AppViewModel: ObservableObject {
         guard usageAmount != "",
               usageMonth != "",
                 usageCustomerId != "" else {
-            //TODO: Notify user empty inputs
+            
+            self.triggerAlert(alertType: .emptyField)
+            
             return nil
         }
         //input validation
+        guard let validUsageMonth = self.validateDate(validInput: usageMonth) else {
+            return nil
+        }
+        
         guard let validUsageAmount = Double(usageAmount),
-              let validUsageMonth = self.validateDate(validInput: usageMonth),
               let validUsageCustId = Int(usageCustomerId) else {
-            //TODO: NOTIFY USER BAD INPUT
+            
+            self.triggerAlert(alertType: .invalidInput)
             return nil
         }
         
         let newUsageData: UsageData
         if let validExistingId = fromExistingId {
-            guard let existingId = Int(validExistingId) else {
-                //TODO: NOTIFY USER
+            guard Int(validExistingId) != nil else {
+                self.triggerAlert(alertType: .idInput)
                 return nil
             }
             
@@ -281,7 +333,8 @@ class AppViewModel: ObservableObject {
         case .update:
             httpMethod = "PUT"
             guard searchText != "", (Int(searchText) != nil) else {
-                //TODO: NOTIFY USER
+                self.triggerAlert(alertType: .idInput)
+                
                 return
             }
             dataClass = buildUsageFromInuts(fromExistingId: searchText)
@@ -291,8 +344,8 @@ class AppViewModel: ObservableObject {
             httpMethod = "DELETE"
             guard !searchText.isEmpty, searchText != "",
                   let validDelId = Int(searchText) else {
-                
-                //TODO: notify user
+                self.triggerAlert(alertType: .idInput)
+
                 return
             }
             dataClass = UsageData(id: validDelId, customerId: 0, usageMonth: "", customerUsage: 0.00)
@@ -305,20 +358,25 @@ class AppViewModel: ObservableObject {
         
         //validate data class validity
         guard let validDataClass = dataClass else {
-            //TODO: NOTIFY USER
             return
         }
         
         //API CALL
         self.apiRepository.handleDatabaseWrite(dataClass: validDataClass, httpMethod: httpMethod, sqlTable: sqlTable, completion: { result, error  in
             
-            //case: write failure, notify user
-            if let error = error {
-                //TODO: NOTIFY USER
-            
-            //case: write success, refresh data
-            } else {
-                self.refresh()
+            DispatchQueue.main.async {
+                
+                //case: write failure, notify user
+                if let error = error {
+                    self.triggerAlert(alertType: .apiError)
+                    
+                    //case: write success, refresh data
+                } else {
+                    self.usageMonth = ""
+                    self.usageAmount = ""
+                    self.usageCustomerId = ""
+                    self.refresh()
+                }
             }
         })
     }

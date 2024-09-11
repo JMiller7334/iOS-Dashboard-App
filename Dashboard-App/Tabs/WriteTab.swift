@@ -66,6 +66,7 @@ struct WriteTab: View {
                 
                 Button(action: {
                     viewModel.writeToDatabase()
+                    UIApplication.shared.endEditing(true)
                 }) {
                     Text("Submit")
                         .frame(maxWidth: .infinity)

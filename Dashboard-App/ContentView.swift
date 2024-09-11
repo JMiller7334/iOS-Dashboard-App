@@ -8,7 +8,6 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                
                 switch viewModel.currentTab {
                 case .Read:
                     ReadTab(viewModel: self.viewModel)
@@ -22,6 +21,7 @@ struct ContentView: View {
                 HStack {
                     Spacer()
                     Button(action: {
+                        resignFirstResponder()
                         viewModel.currentTab = .Read
                         viewModel.onTabChanged()
                     }) {
@@ -32,6 +32,7 @@ struct ContentView: View {
                     }
                     Spacer()
                     Button(action: {
+                        resignFirstResponder()
                         viewModel.currentTab = .Stats
                         viewModel.onTabChanged()
                     }) {
@@ -42,6 +43,7 @@ struct ContentView: View {
                     }
                     Spacer()
                     Button(action: {
+                        resignFirstResponder()
                         viewModel.currentTab = .Write
                         viewModel.onTabChanged()
                     }) {
@@ -56,6 +58,10 @@ struct ContentView: View {
                 .frame(height: buttonHeight)
                 .background(Color(UIColor.systemBackground))
                 .shadow(radius: 4)
+                
+                .alert(isPresented: $viewModel.showAlert) {
+                    Alert(title: Text(viewModel.alertTitle), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
+                }
             }
             
             .navigationBarTitle(Text(viewModel.currentTab.rawValue), displayMode: .inline)
@@ -66,6 +72,10 @@ struct ContentView: View {
             }
 
         }
+    }
+    
+    func resignFirstResponder() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
     // Define the refresh button
@@ -84,4 +94,17 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+import UIKit
+extension UIApplication {
+    func endEditing(_ force: Bool) {
+        guard let windowScene = connectedScenes
+                .first(where: { $0 is UIWindowScene }) as? UIWindowScene else { return }
+        windowScene.windows
+            .filter { $0.isKeyWindow }
+            .first?
+            .endEditing(force)
+    }
+}
+
 
