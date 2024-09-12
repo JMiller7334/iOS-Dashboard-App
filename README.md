@@ -29,7 +29,8 @@ The app is integrated with my [Database Dashboard Web Project](https://github.co
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/iOS-Dashboard-App.git```
+   git clone https://github.com/your-username/iOS-Dashboard-App.git
+   ```
 3. Run the project in Xcode.
    
 ## Related Projects
