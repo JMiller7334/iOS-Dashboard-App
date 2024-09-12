@@ -4,7 +4,7 @@
 
 The iOS Dashboard App is a SwiftUI-based application designed to manage mock metrics for a hypothetical electric company. This app utilizes a custom-built RESTful API, deployed on a VPS, to interact with a MySQL/MariaDB database, supporting full CREATE, READ, UPDATE, and DELETE (CRUD) operations.
 
-The app is integrated with my [Database Dashboard Web Project](https://github.com/JMiller7334/Dashboard-Database-project), sharing the same backend database, creating a seamless data management experience across both platforms.
+The app is integrated with my [Database Dashboard Web Project](https://github.com/JMiller7334/Dashboard-Database-project), sharing the same backend database, creating a data management possibilities across both platforms.
 
 ## Features
 
