@@ -19,6 +19,8 @@ The app is integrated with my [Database Dashboard Web Project](https://github.co
 - **RESTful API**: Custom-built to handle backend database interactions.
 - **MySQL/MariaDB**: For data storage and management.
 
+- **MVVM Design Pattern**: Designed using MVVM principles.
+
 ## Project Goals
 
 - Gain a deeper understanding of integrating APIs into mobile applications.
